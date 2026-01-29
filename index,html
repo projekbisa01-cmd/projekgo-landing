@@ -1,0 +1,664 @@
+import React, { useState, useEffect } from 'react';
+import { MessageCircle, MapPin, Clock, ShieldCheck, ChevronRight, Menu, X, Bike, Star, Phone, Globe, ShoppingBag, Wallet, Zap, Heart, ArrowRight, Trophy, Utensils, Package, Car, HelpingHand, Quote, Store } from 'lucide-react';
+
+const App = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [orderMethod, setOrderMethod] = useState('wa'); // 'wa' or 'web'
+
+  // KONFIGURASI LINK & DATA
+  const logoUrl = "1000190631.webp";
+  const waLinkAdmin1 = "https://wa.me/6281292802623"; 
+  const waLinkAdmin2 = "https://wa.me/62882008667068";
+  const appLink = "#webapp"; 
+
+  // Handle scroll effect for navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false);
+    }
+  };
+
+  const WhatsAppButton = ({ text, className }) => (
+    <a
+      href={waLinkAdmin1} 
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-lg ${className}`}
+    >
+      <MessageCircle size={20} />
+      {text}
+    </a>
+  );
+
+  return (
+    <div className="font-sans text-gray-800 bg-gray-50 min-h-screen relative overflow-x-hidden">
+      {/* Navigation */}
+      <nav 
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          isScrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-5'
+        }`}
+      >
+        <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            {/* LOGO */}
+            <div className="bg-white p-1 rounded-full shadow-sm">
+               <img 
+                src={logoUrl} 
+                alt="Projekgo Logo" 
+                className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover"
+                onError={(e) => {
+                  e.target.onerror = null; 
+                  e.target.src = "https://placehold.co/100x100/orange/white?text=GO"; 
+                }}
+              />
+            </div>
+            <span className={`text-2xl font-extrabold tracking-tight ${isScrolled ? 'text-orange-600' : 'text-orange-600 md:text-white'}`}>
+              Projekgo<span className={isScrolled ? 'text-gray-800' : 'text-gray-800 md:text-white'}>.</span>
+            </span>
+          </div>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-8">
+            {['Layanan', 'Keunggulan', 'Cara Pesan', 'Ulasan'].map((item, idx) => (
+              <button 
+                key={idx}
+                onClick={() => scrollToSection(item.toLowerCase().replace(' ', '-'))}
+                className={`font-medium hover:text-orange-500 transition-colors ${
+                  isScrolled ? 'text-gray-600' : 'text-white/90 hover:text-white'
+                }`}
+              >
+                {item}
+              </button>
+            ))}
+            <WhatsAppButton text="Pesan Sekarang" className="bg-orange-600 hover:bg-orange-700 !py-2 !px-5 text-sm" />
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden text-gray-700"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={28} /> : <Menu size={28} className={isScrolled ? 'text-gray-800' : 'text-gray-800 md:text-white'} />}
+          </button>
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        {isMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-xl py-4 flex flex-col items-center gap-4 animate-in slide-in-from-top-5">
+            {['Layanan', 'Keunggulan', 'Cara Pesan', 'Ulasan'].map((item, idx) => (
+              <button 
+                key={idx}
+                onClick={() => scrollToSection(item.toLowerCase().replace(' ', '-'))}
+                className="text-gray-600 font-medium py-2 w-full text-center hover:bg-orange-50"
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        )}
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        {/* Background blobs */}
+        <div className="absolute top-0 right-0 w-full h-[80%] bg-gradient-to-br from-orange-400 to-red-500 rounded-bl-[100px] -z-10 md:w-[60%] md:h-full md:rounded-bl-[200px]"></div>
+        
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <div className="flex-1 space-y-6 text-center md:text-left">
+              {/* BADGE NO.1 */}
+              <div className="inline-flex items-center gap-2 bg-yellow-400 text-yellow-900 px-5 py-2 rounded-full font-bold text-sm mb-2 shadow-lg border-2 border-white animate-bounce-slow">
+                <Trophy size={18} className="fill-current" /> 
+                Delivery Lokal Gombong No.1
+              </div>
+              
+              <h1 className="text-4xl md:text-6xl font-extrabold leading-tight text-gray-900 md:text-gray-900">
+                Apa Saja Kebutuhanmu, <br/>
+                <span className="text-orange-600 md:text-white">Projekgo</span> Siap Bantu!
+              </h1>
+              <p className="text-lg md:text-xl text-gray-600 md:text-orange-50 max-w-lg mx-auto md:mx-0 leading-relaxed">
+                Bukan cuma antar makanan. Kami siap antar jemput, kirim paket, hingga bantuin belanja pasar. Solusi lengkap warga Gombong.
+              </p>
+              
+              {/* BUTTON GROUP HERO SECTION */}
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center md:justify-start pt-4">
+                <WhatsAppButton text="Pesan via WhatsApp" className="text-lg shadow-xl shadow-green-900/20 w-full sm:w-auto justify-center" />
+                
+                <a 
+                  href={appLink}
+                  className="inline-flex items-center justify-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-xl shadow-orange-900/20 text-lg w-full sm:w-auto"
+                >
+                  <Globe size={20} />
+                  Pesan via Web App
+                </a>
+              </div>
+              
+              <div className="pt-8 flex flex-wrap items-center justify-center md:justify-start gap-4 md:gap-6 text-sm text-gray-500 md:text-orange-100 font-medium">
+                <div className="flex items-center gap-1">
+                  <Clock size={16} /> Fast Respon
+                </div>
+                <div className="flex items-center gap-1">
+                  <Wallet size={16} /> Harga Jujur
+                </div>
+                <div className="flex items-center gap-1">
+                  <MapPin size={16} /> Asli Gombong
+                </div>
+              </div>
+            </div>
+
+            <div className="flex-1 relative w-full max-w-md md:max-w-full">
+              {/* Image Placeholder */}
+              <div className="relative z-10 bg-white p-4 rounded-3xl shadow-2xl rotate-3 transform hover:rotate-0 transition-all duration-500">
+                <div className="aspect-[4/3] bg-orange-100 rounded-2xl overflow-hidden relative group">
+                  <img 
+                    src="https://images.unsplash.com/photo-1617347454431-f49d7ff5c3b1?q=80&w=2000&auto=format&fit=crop" 
+                    alt="Driver Projekgo" 
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                    <div className="text-white">
+                      <p className="font-bold text-lg">Siap Antar Apa Saja</p>
+                      <p className="text-sm opacity-90">Hujan panas, kami gas!</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Floating Badge Image */}
+                <div className="absolute -top-6 -right-6 bg-yellow-400 text-yellow-900 p-4 rounded-full shadow-lg font-bold text-center rotate-12 animate-pulse">
+                  <span className="text-xs uppercase block tracking-wider">Layanan</span>
+                  Lengkap
+                </div>
+              </div>
+
+              {/* Decorative elements */}
+              <div className="absolute top-10 -left-10 w-full h-full bg-gray-900/5 rounded-3xl -z-10 transform -rotate-3"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="layanan" className="py-20 bg-white">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Layanan Andalan Projekgo</h2>
+            <p className="text-gray-600">Satu kontak, semua urusan beres. Pilih layanan yang kamu butuhkan.</p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8">
+             <ServiceCard 
+              icon={<Utensils size={32} />} 
+              title="Projekgo Food" 
+              desc="Lapar? Ribuan menu kuliner Gombong siap antar." 
+              color="text-orange-600"
+              bgColor="bg-orange-100"
+            />
+             <ServiceCard 
+              icon={<Package size={32} />} 
+              title="Projekgo Send" 
+              desc="Kirim paket atau dokumen aman & cepat sampai." 
+              color="text-blue-600"
+              bgColor="bg-blue-100"
+            />
+             <ServiceCard 
+              icon={<Bike size={32} />} 
+              title="Projekgo Rider" 
+              desc="Butuh tumpangan motor? Cepat, aman, anti macet." 
+              color="text-green-600"
+              bgColor="bg-green-100"
+            />
+             <ServiceCard 
+              icon={<Car size={32} />} 
+              title="Projekgo Car" 
+              desc="Pergi nyaman bareng keluarga atau teman naik mobil." 
+              color="text-red-600"
+              bgColor="bg-red-100"
+            />
+             <ServiceCard 
+              icon={<HelpingHand size={32} />} 
+              title="Bantuin Kamu" 
+              desc="Belanja pasar, ambil obat, atau antri? Kami bisa!" 
+              color="text-purple-600"
+              bgColor="bg-purple-100"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section id="keunggulan" className="py-20 bg-orange-50">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Kenapa Harus Projekgo?</h2>
+            <p className="text-gray-600">Komitmen kami untuk memberikan pelayanan terbaik bagi warga Gombong.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 justify-center">
+            <FeatureCard 
+              icon={<Wallet className="text-orange-600" size={32} />}
+              title="Harga Tidak Dinaikan"
+              description="Bayar sesuai bon! Harga makanan SAMA PERSIS dengan harga di warung/resto. Tidak ada mark-up harga menu."
+            />
+            <FeatureCard 
+              icon={<Zap className="text-orange-600" size={32} />}
+              title="Prioritas Langsung Antar"
+              description="Kurir kami khusus mengantar pesanan Anda saja. Tidak digabung dengan pesanan orang lain, makanan sampai lebih cepat."
+            />
+            <FeatureCard 
+              icon={<Bike className="text-orange-600" size={32} />}
+              title="Ongkir Hemat"
+              description="Nikmati layanan pengantaran prioritas (langsung) dengan biaya ongkos kirim yang tetap terjangkau dan hemat."
+            />
+            <FeatureCard 
+              icon={<Heart className="text-orange-600" size={32} />}
+              title="Lokal Gombong"
+              description="Dari Gombong untuk Gombong. Menggunakan jasa kami berarti Anda ikut memutar roda ekonomi lokal kita sendiri."
+            />
+            {/* NEW FEATURE: UNIK */}
+            <FeatureCard 
+              icon={<Store className="text-orange-600" size={32} />}
+              title="Unik"
+              description="Kamu bisa memesan dimana saja warung kesukaanmu. Bebas pilih kuliner favorit tanpa batasan merchant."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* How to Order Section */}
+      <section id="cara-pesan" className="py-20 bg-white relative overflow-hidden">
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Pesan Tanpa Ribet
+            </h2>
+            <p className="text-gray-600 text-lg">
+              Pilih cara yang paling nyaman buat kamu. Sama-sama <span className="font-bold text-orange-600">tanpa download</span> aplikasi!
+            </p>
+            
+            {/* Toggle Switch */}
+            <div className="flex justify-center mt-8">
+              <div className="bg-gray-100 p-1.5 rounded-full inline-flex relative shadow-inner">
+                <button
+                  onClick={() => setOrderMethod('wa')}
+                  className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 relative z-10 ${
+                    orderMethod === 'wa' 
+                      ? 'bg-green-500 text-white shadow-lg transform scale-105' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  <MessageCircle size={18} />
+                  Via WhatsApp
+                </button>
+                <button
+                  onClick={() => setOrderMethod('web')}
+                  className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 relative z-10 ${
+                    orderMethod === 'web' 
+                      ? 'bg-orange-500 text-white shadow-lg transform scale-105' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  <Globe size={18} />
+                  Via Web App
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+            <div className="md:w-1/2 space-y-8 animate-in fade-in slide-in-from-left-4 duration-500" key={orderMethod}>
+              <h3 className="text-2xl font-bold text-gray-900">
+                {orderMethod === 'wa' ? (
+                  <>Chat Admin, <span className="text-green-600">Seperti Chat Teman</span></>
+                ) : (
+                  <>Klik & Pesan, <span className="text-orange-600">Langsung di Web</span></>
+                )}
+              </h3>
+              <p className="text-gray-600 text-lg">
+                {orderMethod === 'wa' 
+                  ? "Cocok buat kamu yang suka ngobrol dan mau request khusus. Admin kami siap bantu carikan makanan favoritmu."
+                  : "Lebih visual dan praktis. Lihat foto menu, cek harga total, dan checkout dalam hitungan detik."}
+              </p>
+              
+              <div className="space-y-6">
+                {orderMethod === 'wa' ? (
+                  <>
+                    <StepItem 
+                      number="1" 
+                      title="Klik Tombol WhatsApp" 
+                      desc="Otomatis terhubung ke Admin Projekgo yang ramah." 
+                    />
+                    <StepItem 
+                      number="2" 
+                      title="Sebutkan Request" 
+                      desc="Mau Food, Ride, atau Bantuin belanja? Bilang saja." 
+                    />
+                    <StepItem 
+                      number="3" 
+                      title="Prioritas Langsung" 
+                      desc="Driver langsung meluncur ke lokasimu." 
+                    />
+                  </>
+                ) : (
+                  <>
+                    <StepItem 
+                      number="1" 
+                      title="Buka Link Website" 
+                      desc="Akses web Projekgo dari browser HP, tanpa download." 
+                      color="orange"
+                    />
+                    <StepItem 
+                      number="2" 
+                      title="Pilih Layanan" 
+                      desc="Pilih Food, Send, atau layanan lainnya." 
+                      color="orange"
+                    />
+                    <StepItem 
+                      number="3" 
+                      title="Checkout Otomatis" 
+                      desc="Pesanan prioritas langsung diproses driver." 
+                      color="orange"
+                    />
+                  </>
+                )}
+              </div>
+
+              <div className="pt-4">
+                {orderMethod === 'wa' ? (
+                  <WhatsAppButton text="Chat Admin Sekarang" />
+                ) : (
+                  <button className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                    <Globe size={20} />
+                    Buka Web App
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div className="md:w-1/2 flex justify-center">
+              {/* Phone Mockup Frame */}
+              <div className="bg-gray-100 p-4 rounded-[2.5rem] shadow-2xl max-w-sm w-full border-8 border-gray-900 transition-all duration-500">
+                <div className="bg-white rounded-[2rem] overflow-hidden h-[450px] flex flex-col shadow-inner relative">
+                  
+                  {orderMethod === 'wa' ? (
+                    // WHATSAPP MOCKUP UI
+                    <>
+                      <div className="bg-[#075E54] p-4 flex items-center gap-3 text-white transition-all">
+                        <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center overflow-hidden">
+                           <img src={logoUrl} className="w-full h-full object-cover" alt="Logo" onError={(e)=>{e.target.src="https://placehold.co/50x50/orange/white?text=GO"}}/>
+                        </div>
+                        <div>
+                          <p className="font-bold text-sm">Admin Projekgo</p>
+                          <p className="text-[10px] opacity-80">Online</p>
+                        </div>
+                      </div>
+                      <div className="flex-1 p-4 space-y-4 bg-[#e5ddd5] overflow-hidden relative">
+                        <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                        <ChatBubble text="Min, bisa bantuin beliin obat di Apotek K24 gak?" isMe={true} />
+                        <ChatBubble text="Bisa banget kak! Kirim aja resep atau nama obatnya ya 💊" isMe={false} />
+                        <ChatBubble text="Oke ini resepnya. Sekalian anter ke rumah ya." isMe={true} />
+                        <ChatBubble text="Siap laksanakan! Driver meluncur ke apotek sekarang 🚀" isMe={false} />
+                      </div>
+                      <div className="p-3 bg-white flex items-center gap-2 border-t">
+                        <div className="flex-1 h-8 bg-gray-100 rounded-full px-3 text-xs text-gray-400 flex items-center">Ketik pesan...</div>
+                        <div className="w-8 h-8 bg-[#075E54] rounded-full flex items-center justify-center text-white">
+                          <ChevronRight size={16} />
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    // WEB APP MOCKUP UI
+                    <>
+                      <div className="bg-orange-600 p-4 flex items-center justify-between text-white shadow-md z-10">
+                        <div className="flex items-center gap-2">
+                          <Menu size={20} />
+                          <span className="font-bold">Projekgo App</span>
+                        </div>
+                        <ShoppingBag size={20} />
+                      </div>
+                      <div className="flex-1 bg-gray-50 overflow-hidden relative flex flex-col">
+                        <div className="p-4 grid grid-cols-4 gap-4">
+                            <div className="flex flex-col items-center gap-1">
+                                <div className="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center"><Utensils size={20}/></div>
+                                <span className="text-[10px] font-bold">Food</span>
+                            </div>
+                            <div className="flex flex-col items-center gap-1">
+                                <div className="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center"><Bike size={20}/></div>
+                                <span className="text-[10px] font-bold">Ride</span>
+                            </div>
+                            <div className="flex flex-col items-center gap-1">
+                                <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center"><Package size={20}/></div>
+                                <span className="text-[10px] font-bold">Send</span>
+                            </div>
+                             <div className="flex flex-col items-center gap-1">
+                                <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center"><HelpingHand size={20}/></div>
+                                <span className="text-[10px] font-bold">Bantu</span>
+                            </div>
+                        </div>
+                        <div className="flex-1 bg-white rounded-t-2xl p-4 shadow-inner">
+                            <p className="font-bold mb-3 text-sm">Rekomendasi Food</p>
+                            <div className="space-y-3">
+                                 <div className="flex gap-3 items-center border-b pb-2">
+                                    <div className="w-12 h-12 bg-gray-200 rounded-lg"></div>
+                                    <div className="flex-1">
+                                        <div className="h-3 w-24 bg-gray-200 rounded mb-1"></div>
+                                        <div className="h-2 w-16 bg-gray-100 rounded"></div>
+                                    </div>
+                                    <div className="w-6 h-6 bg-orange-500 rounded text-white flex items-center justify-center">+</div>
+                                 </div>
+                                  <div className="flex gap-3 items-center border-b pb-2">
+                                    <div className="w-12 h-12 bg-gray-200 rounded-lg"></div>
+                                    <div className="flex-1">
+                                        <div className="h-3 w-20 bg-gray-200 rounded mb-1"></div>
+                                        <div className="h-2 w-12 bg-gray-100 rounded"></div>
+                                    </div>
+                                    <div className="w-6 h-6 bg-orange-500 rounded text-white flex items-center justify-center">+</div>
+                                 </div>
+                            </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section (Ulasan) */}
+      <section id="ulasan" className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4 md:px-8">
+           <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Apa Kata Warga Gombong?</h2>
+            <p className="text-gray-600">Ribuan pelanggan puas dengan layanan cepat dan ramah Projekgo.</p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <TestimonialCard 
+              name="Rina Wati" 
+              role="Ibu Rumah Tangga"
+              text="Sangat terbantu banget sama fitur Bantuin Kamu. Pas anak sakit gak bisa keluar, Projekgo siap beliin obat dan bubur. Makasih ya!"
+            />
+             <TestimonialCard 
+              name="Budi Santoso" 
+              role="Karyawan Swasta"
+              text="Projekgo Food paling juara. Harga beneran sama kayak di resto, gak dimahalin. Pengiriman juga cepet banget soalnya driver khusus."
+            />
+             <TestimonialCard 
+              name="Putri Andini" 
+              role="Mahasiswi"
+              text="Suka banget sama Projekgo Rider. Drivernya sopan-sopan, motor bersih, dan yang penting on time kalau mau berangkat kuliah."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof / Stats */}
+      <section className="py-12 bg-gray-900 text-white">
+        <div className="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <StatItem value="15.000+" label="Pesanan Sukses Harian" />
+          <StatItem value="40+" label="Rider Siap Antar" />
+          <StatItem value="20-30 Menit" label="Waktu Antar Rata-rata" />
+          <StatItem value="4.9/5" label="Rating Kepuasan" />
+        </div>
+      </section>
+
+      {/* Call to Action Footer */}
+      <section className="py-20 bg-gradient-to-br from-orange-500 to-red-600 text-white text-center px-4">
+        <div className="container mx-auto max-w-2xl">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">Butuh Bantuan Sekarang?</h2>
+          <p className="text-xl opacity-90 mb-8">
+            Apapun kebutuhanmu di Gombong, Projekgo siap bantuin. Chat admin sekarang!
+          </p>
+          <a
+            href={waLinkAdmin1} 
+            className="inline-block bg-white text-orange-600 text-xl font-bold py-4 px-10 rounded-full shadow-2xl hover:bg-gray-100 transition-all transform hover:scale-105"
+          >
+            Pesan Sekarang
+          </a>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-400 py-12 border-t border-gray-800">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <div className="flex items-center gap-3 text-white text-xl font-bold mb-4">
+                 <div className="w-10 h-10 rounded-full overflow-hidden bg-white/10">
+                    <img src={logoUrl} className="w-full h-full object-cover" alt="Logo" onError={(e)=>{e.target.src="https://placehold.co/50x50/orange/white?text=GO"}} />
+                 </div>
+                 Projekgo.
+              </div>
+              <p className="text-sm">
+                Solusi layanan on-demand lengkap di Gombong. Food, Ride, Send, Car, hingga Personal Assistant.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-white font-bold mb-4">Kontak</h4>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-center gap-2">
+                  <Phone size={14} className="shrink-0"/> 
+                  <a href={waLinkAdmin1} target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors">
+                    Admin 1 : 0812-9280-2623
+                  </a>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Phone size={14} className="shrink-0"/> 
+                  <a href={waLinkAdmin2} target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors">
+                    Admin 2 : 0882-0086-7068
+                  </a>
+                </li>
+                <li className="flex items-center gap-2"><MapPin size={14} className="shrink-0"/> Gombong, Kebumen, Jawa Tengah</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-bold mb-4">Jam Operasional</h4>
+              <p className="text-sm">Setiap Hari</p>
+              <p className="text-sm">06.30 - 21.00 WIB</p>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 pt-8 text-center text-sm">
+            &copy; {new Date().getFullYear()} Projekgo Delivery. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
+      {/* Sticky Mobile FAB (Single Floating Button - WA Only) */}
+      <div className="md:hidden fixed bottom-6 right-4 z-50 flex flex-col gap-3 items-end">
+        {/* Tombol WhatsApp */}
+        <a 
+          href={waLinkAdmin1}
+          className="bg-green-500 text-white p-4 rounded-full shadow-2xl animate-bounce hover:bg-green-600 transition-colors"
+          aria-label="Chat WhatsApp"
+        >
+          <MessageCircle size={28} />
+        </a>
+      </div>
+    </div>
+  );
+};
+
+// Sub-components
+const FeatureCard = ({ icon, title, description }) => (
+  <div className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow border border-gray-100 group h-full">
+    <div className="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+      {React.cloneElement(icon, { className: "group-hover:text-white transition-colors text-orange-600" })}
+    </div>
+    <h3 className="text-xl font-bold mb-3 text-gray-900">{title}</h3>
+    <p className="text-gray-600 leading-relaxed text-sm">{description}</p>
+  </div>
+);
+
+const ServiceCard = ({ icon, title, desc, color, bgColor }) => (
+    <div className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-lg transition-all border border-gray-100 flex flex-col items-center text-center group cursor-pointer hover:-translate-y-1">
+        <div className={`w-16 h-16 ${bgColor} ${color} rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+            {icon}
+        </div>
+        <h3 className="font-bold text-lg mb-2 text-gray-900">{title}</h3>
+        <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
+    </div>
+);
+
+const TestimonialCard = ({ name, role, text }) => (
+    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative">
+        <Quote className="absolute top-4 right-4 text-orange-100" size={40} />
+        <div className="flex items-center gap-1 mb-4">
+            {[1,2,3,4,5].map(i => <Star key={i} size={16} className="fill-yellow-400 text-yellow-400" />)}
+        </div>
+        <p className="text-gray-600 mb-6 italic text-sm">"{text}"</p>
+        <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 font-bold">
+                {name.charAt(0)}
+            </div>
+            <div>
+                <p className="font-bold text-sm text-gray-900">{name}</p>
+                <p className="text-xs text-gray-400">{role}</p>
+            </div>
+        </div>
+    </div>
+);
+
+const StepItem = ({ number, title, desc, color = "orange" }) => (
+  <div className="flex gap-4">
+    <div className={`flex-shrink-0 w-10 h-10 ${color === 'orange' ? 'bg-orange-600' : 'bg-green-600'} text-white rounded-full flex items-center justify-center font-bold shadow-lg`}>
+      {number}
+    </div>
+    <div>
+      <h4 className="text-lg font-bold text-gray-900">{title}</h4>
+      <p className="text-gray-600 text-sm">{desc}</p>
+    </div>
+  </div>
+);
+
+const ChatBubble = ({ text, isMe }) => (
+  <div className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
+    <div className={`max-w-[80%] p-3 rounded-lg text-xs shadow-sm ${
+      isMe ? 'bg-[#dcf8c6] text-gray-800 rounded-tr-none' : 'bg-white text-gray-800 rounded-tl-none'
+    }`}>
+      {text}
+      <div className={`text-[9px] text-gray-400 mt-1 text-right`}>10:30</div>
+    </div>
+  </div>
+);
+
+const StatItem = ({ value, label }) => (
+  <div className="space-y-2">
+    <div className="text-3xl md:text-4xl font-extrabold text-orange-500">{value}</div>
+    <div className="text-sm text-gray-400 font-medium uppercase tracking-wider">{label}</div>
+  </div>
+);
+
+export default App;
