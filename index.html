@@ -10,7 +10,9 @@ const App = () => {
   const logoUrl = "1000190631.webp";
   const waLinkAdmin1 = "https://wa.me/6281292802623"; 
   const waLinkAdmin2 = "https://wa.me/62882008667068";
-  const appLink = "#webapp"; 
+  
+  // UPDATE LINK WEB APP
+  const appLink = "https://katalog.projekgo.id"; 
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -59,12 +61,12 @@ const App = () => {
                 className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover"
                 onError={(e) => {
                   e.target.onerror = null; 
-                  e.target.src = "https://placehold.co/100x100/orange/white?text=GO"; 
+                  e.target.src = "https://i.ibb.co.com/QFhrRCwr/Whats-App-Image-2026-01-29-at-10-12-08.jpg"; 
                 }}
               />
             </div>
             <span className={`text-2xl font-extrabold tracking-tight ${isScrolled ? 'text-orange-600' : 'text-orange-600 md:text-white'}`}>
-              Projekgo<span className={isScrolled ? 'text-gray-800' : 'text-gray-800 md:text-white'}>.</span>
+              Projekgo<span className={isScrolled ? 'text-gray-800' : 'text-gray-800 md:text-white'}>.id</span>
             </span>
           </div>
 
@@ -137,6 +139,8 @@ const App = () => {
                 
                 <a 
                   href={appLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-xl shadow-orange-900/20 text-lg w-full sm:w-auto"
                 >
                   <Globe size={20} />
@@ -377,10 +381,15 @@ const App = () => {
                 {orderMethod === 'wa' ? (
                   <WhatsAppButton text="Chat Admin Sekarang" />
                 ) : (
-                  <button className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                  <a 
+                    href={appLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-lg"
+                  >
                     <Globe size={20} />
                     Buka Web App
-                  </button>
+                  </a>
                 )}
               </div>
             </div>
