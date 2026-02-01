@@ -98,7 +98,7 @@
                             Pesan via WhatsApp
                         </a>
                         
-                        <a href="https://katalog.projekgo.id" target="_blank" class="inline-flex items-center justify-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-xl shadow-orange-900/20 text-lg w-full sm:w-auto">
+                        <a href="#" onclick="showComingSoon(event)" class="inline-flex items-center justify-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-xl shadow-orange-900/20 text-lg w-full sm:w-auto">
                             <i data-lucide="globe" class="w-5 h-5"></i>
                             Pesan via Web App
                         </a>
@@ -460,6 +460,20 @@
         </a>
     </div>
 
+    <!-- Modal Coming Soon -->
+    <div id="coming-soon-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl relative transform transition-all scale-100">
+            <div class="w-20 h-20 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="rocket" class="w-10 h-10"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Segera Hadir!</h3>
+            <p class="text-gray-600 text-lg mb-8 leading-relaxed">ditunggu yah... sebentar lagi aplikasi katalog projekgo siap digunakan..</p>
+            <button onclick="closeComingSoon()" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-8 rounded-full transition-all w-full shadow-lg hover:shadow-orange-200">
+                Siap, Ditunggu!
+            </button>
+        </div>
+    </div>
+
     <!-- JavaScript Logic -->
     <script>
         // Init Icons
@@ -470,6 +484,19 @@
         const waLink = "https://wa.me/6281292802623";
         const appLink = "https://katalog.projekgo.id";
         
+        // --- 0. Modal Logic ---
+        function showComingSoon(e) {
+            if(e) e.preventDefault();
+            const modal = document.getElementById('coming-soon-modal');
+            modal.classList.remove('hidden');
+            // Re-render icons inside modal just in case
+            lucide.createIcons();
+        }
+
+        function closeComingSoon() {
+            document.getElementById('coming-soon-modal').classList.add('hidden');
+        }
+
         // --- 1. Navbar Scroll Effect ---
         const navbar = document.getElementById('navbar');
         const brandText = document.getElementById('brand-text');
@@ -627,7 +654,7 @@
             dynTitle.innerHTML = 'Klik & Pesan, <span class="text-orange-600">Langsung di Web</span>';
             dynDesc.textContent = "Lebih visual dan praktis. Lihat foto menu, cek harga total, dan checkout dalam hitungan detik.";
             dynSteps.innerHTML = webStepsHTML;
-            dynButton.innerHTML = `<a href="${appLink}" target="_blank" class="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-lg"><i data-lucide="globe" class="w-5 h-5"></i>Buka Web App</a>`;
+            dynButton.innerHTML = `<a href="#" onclick="showComingSoon(event)" class="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-lg"><i data-lucide="globe" class="w-5 h-5"></i>Buka Web App</a>`;
             mockupScreen.innerHTML = webMockupHTML;
             lucide.createIcons();
         }
