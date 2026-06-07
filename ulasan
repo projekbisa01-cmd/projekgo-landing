@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pelaporan Bug Aplikasi</title>
+    <!-- Menggunakan Tailwind CSS untuk styling yang cepat dan modern -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animasi loading sederhana */
+        .loader {
+            border-top-color: #3498db;
+            -webkit-animation: spinner 1.5s linear infinite;
+            animation: spinner 1.5s linear infinite;
+        }
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 md:p-8 font-sans text-gray-800">
+
+    <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        
+        <!-- Header -->
+        <div class="bg-blue-600 p-6 text-white text-center">
+            <h1 class="text-2xl font-bold">Pelaporan Bug & Feedback</h1>
+            <p class="text-sm mt-2 opacity-90">Terima kasih telah membantu menguji aplikasi kami sebelum rilis di Play Store!</p>
+        </div>
+
+        <!-- Form Container -->
+        <div class="p-6 md:p-8">
+            <!-- Alert Sukses (Disembunyikan secara default) -->
+            <div id="successAlert" class="hidden mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Berhasil!</strong>
+                <span class="block sm:inline">Laporan bug Anda telah tersimpan. Terima kasih!</span>
+            </div>
+
+            <!-- Alert Error (Disembunyikan secara default) -->
+            <div id="errorAlert" class="hidden mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Gagal!</strong>
+                <span class="block sm:inline">Terjadi kesalahan saat mengirim data. Silakan coba lagi.</span>
+            </div>
+
+            <form id="bugForm" class="space-y-5">
+                
+                <!-- 1. Data Penguji -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nama / Username Penguji *</label>
+                        <input type="text" name="nama" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Contoh: Budi">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email / Kontak (Opsional)</label>
+                        <input type="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="budi@email.com">
+                    </div>
+                </div>
+
+                <!-- 2. Informasi Perangkat -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tipe HP & OS *</label>
+                        <input type="text" name="perangkat" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Contoh: Samsung A54, Android 14">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Versi Aplikasi (App Version) *</label>
+                        <input type="text" name="versi" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Contoh: v1.0.0 (Beta)">
+                    </div>
+                </div>
+
+                <!-- 3. Detail Bug -->
+                <hr class="border-gray-200">
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Judul Bug / Masalah *</label>
+                    <input type="text" name="judul" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Contoh: Aplikasi crash saat klik tombol login">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Tingkat Keparahan (Severity) *</label>
+                    <select name="keparahan" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-white">
+                        <option value="" disabled selected>Pilih tingkat keparahan...</option>
+                        <option value="Rendah">Rendah (Hanya masalah visual/UI)</option>
+                        <option value="Sedang">Sedang (Fitur terganggu tapi masih bisa dipakai)</option>
+                        <option value="Tinggi">Tinggi (Fitur utama tidak berfungsi)</option>
+                        <option value="Kritis">Kritis (Aplikasi Crash / Force Close)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Langkah-langkah mereproduksi bug (Steps to reproduce) *</label>
+                    <textarea name="langkah" rows="3" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="1. Buka halaman beranda&#10;2. Klik menu profil&#10;3. Masukkan password..."></textarea>
+                    <p class="text-xs text-gray-500 mt-1">Jelaskan urutan agar kami bisa meniru masalah tersebut.</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Apa yang terjadi? (Actual Result) *</label>
+                    <textarea name="hasil_nyata" rows="2" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Aplikasi langsung tertutup sendiri"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Link Screenshot / Video (Opsional)</label>
+                    <input type="url" name="link_media" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Link Google Drive, Imgur, dll">
+                    <p class="text-xs text-gray-500 mt-1">Upload screenshot ke Google Drive/Imgur dan paste linknya di sini.</p>
+                </div>
+
+                <!-- Tombol Submit -->
+                <button type="submit" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 flex justify-center items-center">
+                    <span id="btnText">Kirim Laporan Bug</span>
+                    <div id="btnSpinner" class="hidden loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-6 w-6 ml-2"></div>
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- PERHATIAN: GANTI URL DI BAWAH INI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA ---
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_g9XxjKykO6b0PBMd--f0ReDxwI7DKM87kzZFF_Kra6hya1FfJZz5RAFbXs6PMiWS/exec'; 
+
+        const form = document.getElementById('bugForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const btnSpinner = document.getElementById('btnSpinner');
+        const successAlert = document.getElementById('successAlert');
+        const errorAlert = document.getElementById('errorAlert');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            // Sembunyikan alert sebelumnya
+            successAlert.classList.add('hidden');
+            errorAlert.classList.add('hidden');
+
+            // Ubah state tombol menjadi loading
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+            btnText.innerText = 'Mengirim...';
+            btnSpinner.classList.remove('hidden');
+
+            // Ambil data dari form
+            const formData = new FormData(form);
+
+            // Kirim data ke Google Apps Script
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                // Jika sukses
+                successAlert.classList.remove('hidden');
+                form.reset(); // Kosongkan form
+            })
+            .catch(error => {
+                // Jika gagal
+                console.error('Error!', error.message);
+                errorAlert.classList.remove('hidden');
+            })
+            .finally(() => {
+                // Kembalikan state tombol
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+                btnText.innerText = 'Kirim Laporan Bug';
+                btnSpinner.classList.add('hidden');
+                
+                // Scroll ke atas agar user melihat notifikasi
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
