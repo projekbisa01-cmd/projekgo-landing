@@ -175,6 +175,14 @@
     <!-- Services Section -->
     <section id="layanan" class="py-16 md:py-24 relative">
         <div class="container mx-auto px-4 md:px-8 max-w-6xl">
+            <!-- Tombol Kenalan -->
+            <div class="mb-8 flex justify-center md:justify-start">
+                <button onclick="openAboutModal()" class="inline-flex items-center gap-2 bg-gradient-to-r from-orange-100 to-red-100 hover:from-orange-200 hover:to-red-200 text-orange-700 font-bold py-3 px-6 rounded-full transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 text-sm animate-pulse-slow">
+                    <i data-lucide="sparkles" class="w-5 h-5 text-orange-600"></i>
+                    Kenalan sama Projekgo yuk!
+                </button>
+            </div>
+
             <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
                 <div class="text-left">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Layanan Kami</h2>
@@ -553,6 +561,85 @@
         </div>
     </div>
 
+    <!-- Modal Kenalan / About -->
+    <div id="about-modal" class="hidden fixed inset-0 z-[110] flex items-center justify-center px-4 bg-gray-900/60 backdrop-blur-sm transition-opacity duration-300 py-6">
+        <div class="bg-white rounded-[2rem] p-6 md:p-8 max-w-2xl w-full shadow-2xl relative transform transition-all scale-100 animate-in zoom-in-95 duration-200 max-h-full flex flex-col">
+            <!-- Tombol Close -->
+            <div class="absolute top-4 right-4 z-10">
+                <button type="button" onclick="closeAboutModal()" class="text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-full p-2 transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <div class="overflow-y-auto hide-scrollbar pr-2 pb-2 flex-1">
+                <div class="text-center mb-6 pt-4">
+                    <div class="w-16 h-16 bg-gradient-to-br from-orange-100 to-red-100 text-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-inner">
+                        <i data-lucide="handshake" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900">Selamat Datang di PROJEKGO!</h3>
+                </div>
+
+                <div class="space-y-6 text-gray-600 text-sm md:text-base leading-relaxed">
+                    <p>
+                        <strong>PROJEKGO</strong> adalah aplikasi katalog digital yang dirancang khusus untuk memberikan kemudahan, kenyamanan, dan efisiensi dalam setiap pemesanan Anda. Berfungsi sebagai jembatan praktis, aplikasi ini mempermudah Anda memilih produk favorit, di mana semua pesanan yang Anda checkout akan langsung terhubung secara otomatis ke WhatsApp Admin untuk proses yang lebih personal dan cepat.
+                    </p>
+
+                    <div>
+                        <h4 class="text-lg font-bold text-gray-900 mb-2">Tujuan Utama Kami</h4>
+                        <p>
+                            Kami hadir dengan fokus pada efektivitas dan ketersediaan layanan demi memberikan pengalaman belanja yang mulus. Dengan sistem katalog terintegrasi, PROJEKGO berkomitmen untuk meminimalisir risiko kesalahan pesanan, sehingga apa yang Anda pilih adalah apa yang Anda dapatkan.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-lg font-bold text-gray-900 mb-4">Mengapa Memilih PROJEKGO?</h4>
+                        <ul class="space-y-4">
+                            <li class="flex gap-3 md:gap-4 items-start bg-gray-50 p-4 rounded-2xl">
+                                <div class="bg-green-100 text-green-600 p-2 rounded-xl mt-1">
+                                    <i data-lucide="badge-percent" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <strong class="text-gray-900 block mb-1 text-base">Harga Jujur & Pasti Hemat</strong>
+                                    Kami menjamin harga yang tertera di aplikasi sama persis dengan harga asli di penjual langsung. Tanpa ada kenaikan harga (no markup) karena PROJEKGO murni berfungsi sebagai katalog penjual. Tanpa menunggu promo atau diskon pun, Anda sudah pasti hemat setiap hari!
+                                </div>
+                            </li>
+                            <li class="flex gap-3 md:gap-4 items-start bg-gray-50 p-4 rounded-2xl">
+                                <div class="bg-orange-100 text-orange-600 p-2 rounded-xl mt-1">
+                                    <i data-lucide="zap" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <strong class="text-gray-900 block mb-1 text-base">Pengantaran Prioritas (1 Pelanggan, 1 Rider)</strong>
+                                    Layanan pengiriman kami tidak hanya hemat, tetapi juga diprioritaskan. Begitu pesanan masuk, langsung diproses dengan sistem satu rider untuk satu pelanggan agar pengiriman menjadi jauh lebih cepat, tepat, dan aman.
+                                </div>
+                            </li>
+                            <li class="flex gap-3 md:gap-4 items-start bg-gray-50 p-4 rounded-2xl">
+                                <div class="bg-blue-100 text-blue-600 p-2 rounded-xl mt-1">
+                                    <i data-lucide="message-square-plus" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <strong class="text-gray-900 block mb-1 text-base">Pemesanan Fleksibel (Bisa Kustom)</strong>
+                                    Ngidam makanan atau butuh barang yang kebetulan belum terdaftar di aplikasi? Tenang saja! Anda tetap bisa memesan apa pun di luar katalog dengan cara langsung chat Admin kami. Kami siap membantu membelikannya untuk Anda.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-orange-50 to-orange-100/50 border border-orange-200 p-5 rounded-2xl mt-8">
+                        <p class="text-orange-900 font-semibold italic text-center">
+                            "PROJEKGO: Berawal dari komitmen untuk menghadirkan kemudahan dan efektivitas, kami lahir sebagai aplikasi katalog yang siap mendampingi dan mempermudah segala kebutuhan harian Anda. Nikmati cara memesan yang lebih praktis dalam satu genggaman!"
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 pt-4 border-t border-gray-100">
+                <button onclick="closeAboutModal()" class="w-full bg-gray-900 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg shadow-gray-900/20 hover:shadow-orange-500/30 text-sm">
+                    Tutup & Lanjutkan
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- JavaScript Logic (KEPT SAME) -->
     <script>
         lucide.createIcons();
@@ -734,6 +821,17 @@
         function closeOrderModal() {
             document.getElementById('order-modal').classList.add('hidden');
             document.getElementById('order-form').reset();
+        }
+
+        // --- About Modal Logic ---
+        function openAboutModal() {
+            const modal = document.getElementById('about-modal');
+            modal.classList.remove('hidden');
+            lucide.createIcons(); // refresh icon
+        }
+
+        function closeAboutModal() {
+            document.getElementById('about-modal').classList.add('hidden');
         }
 
         function getLocationPin() {
